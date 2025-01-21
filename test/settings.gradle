@@ -1,4 +1,0 @@
-rootProject.name = 'test'
-include 'module-1'
-include 'module-2'
-

@@ -83,6 +83,46 @@ public class Order extends AggregateRoot<OrderId> {
         failureMessages = builder.failureMessages;
     }
 
+    public void pay() {
+        if (orderStatus != OrderStatus.PENDING) {
+            throw new OrderDomainException("Order is not pending");
+        }
+        orderStatus = OrderStatus.PAID;
+    }
+
+    public void approve() {
+        if (orderStatus != OrderStatus.PAID) {
+            throw new OrderDomainException("Order is not paid");
+        }
+        orderStatus = OrderStatus.APPROVED;
+    }
+
+    public void cancel(List<String> failureMessages) {
+        if (orderStatus != OrderStatus.PENDING && orderStatus != OrderStatus.CANCELLING) {
+            throw new OrderDomainException("Order is not pending or approved");
+        }
+        orderStatus = OrderStatus.CANCELLED;
+        updateFailureMessages(failureMessages);
+    }
+
+    public void initCancel(List<String> failureMessages) {
+        if (orderStatus != OrderStatus.PAID) {
+            throw new OrderDomainException("Order is not paid");
+        }
+        orderStatus = OrderStatus.CANCELLING;
+        updateFailureMessages(failureMessages);
+    }
+
+    private void updateFailureMessages(List<String> failureMessages) {
+        if (this.failureMessages != null && failureMessages != null) {
+            this.failureMessages.addAll(failureMessages.stream().filter(message -> !message.isEmpty()).toList());
+        }
+
+        if (this.failureMessages == null) {
+            this.failureMessages = failureMessages;
+        }
+    }
+
 
     public CustomerId getCustomerId() {
         return customerId;

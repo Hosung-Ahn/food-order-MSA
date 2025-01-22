@@ -7,6 +7,8 @@ import java.util.Objects;
 public class Money {
     private final BigDecimal amount;
 
+    public static final Money ZERO = new Money(BigDecimal.ZERO);
+
     public Money(BigDecimal amount) {
         if (amount == null) {
             throw new IllegalArgumentException("Amount cannot be null");
@@ -39,6 +41,10 @@ public class Money {
 
     public Money multiply(BigDecimal value) {
         return new Money(amount.multiply(value));
+    }
+
+    public Money multiply(int value) {
+        return new Money(amount.multiply(BigDecimal.valueOf(value)));
     }
 
     @Override

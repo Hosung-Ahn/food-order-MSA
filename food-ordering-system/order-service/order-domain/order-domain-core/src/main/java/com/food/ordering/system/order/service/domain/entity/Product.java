@@ -8,10 +8,14 @@ public class Product extends BaseEntity<ProductId> {
     private String name;
     private Money price;
 
-    private Product(Builder builder) {
-        super.setId(builder.productId);
-        name = builder.name;
-        price = builder.price;
+    public Product(ProductId productId, String name, Money price) {
+        super.setId(productId);
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(ProductId productId) {
+        super.setId(productId);
     }
 
     public String getName() {
@@ -25,33 +29,5 @@ public class Product extends BaseEntity<ProductId> {
     public void updateWithConfirmedNameAndPrice(String name, Money price) {
         this.name = name;
         this.price = price;
-    }
-
-    public static final class Builder {
-        private ProductId productId;
-        private String name;
-        private Money price;
-
-        public Builder() {
-        }
-
-        public Builder id(ProductId val) {
-            productId = val;
-            return this;
-        }
-
-        public Builder name(String val) {
-            name = val;
-            return this;
-        }
-
-        public Builder price(Money val) {
-            price = val;
-            return this;
-        }
-
-        public Product build() {
-            return new Product(this);
-        }
     }
 }

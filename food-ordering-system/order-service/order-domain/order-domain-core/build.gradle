@@ -3,4 +3,6 @@ bootJar.enabled = false
 
 dependencies {
     implementation project(':common:common-domain')
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
 }

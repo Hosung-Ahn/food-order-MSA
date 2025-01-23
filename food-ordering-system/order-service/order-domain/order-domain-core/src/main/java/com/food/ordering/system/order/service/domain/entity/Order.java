@@ -123,6 +123,9 @@ public class Order extends AggregateRoot<OrderId> {
         }
     }
 
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 
     public CustomerId getCustomerId() {
         return customerId;

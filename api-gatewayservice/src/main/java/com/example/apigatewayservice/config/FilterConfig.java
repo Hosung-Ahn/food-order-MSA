@@ -1,11 +1,12 @@
 package com.example.apigatewayservice.config;
 
+import com.example.apigatewayservice.filter.CustomFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class FilterConfig {
 
     private final CustomFilter customFilter;
@@ -16,7 +17,7 @@ public class FilterConfig {
 
 
     // custom filter 적용
-    @Bean
+//    @Bean
     public RouteLocator gatewayLocator(RouteLocatorBuilder locatorBuilder) {
         return locatorBuilder.routes()
                 .route(r -> r.path("/first-service/**")

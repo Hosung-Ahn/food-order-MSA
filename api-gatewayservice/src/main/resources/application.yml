@@ -15,29 +15,34 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: first-service
-          uri: lb://my-first-service
+        - id : user-service
+          uri: lb://user-service
           predicates:
-              - Path=/first-service/**
-          filters:
-            - CustomFilter
-        - id: second-service
-          uri: lb://my-second-service
-          predicates:
-            - Path=/second-service/**
-          filters:
-            - name : CustomFilter
-            - name : LoggingFilter
-              args:
-                baseMessage: This is a logging filter
-                preLogger: true
-                postLogger: true
+            - Path=/user-service/**
 
-      default-filters:
-        - name: GlobalFilter
-          args:
-            baseMessage: This is a global filter
-            preLogger: true
-            postLogger: true
+#        - id: first-service
+#          uri: lb://my-first-service
+#          predicates:
+#              - Path=/first-service/**
+#          filters:
+#            - CustomFilter
+#        - id: second-service
+#          uri: lb://my-second-service
+#          predicates:
+#            - Path=/second-service/**
+#          filters:
+#            - name : CustomFilter
+#            - name : LoggingFilter
+#              args:
+#                baseMessage: This is a logging filter
+#                preLogger: true
+#                postLogger: true
+#
+#      default-filters:
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: This is a global filter
+#            preLogger: true
+#            postLogger: true
 
 

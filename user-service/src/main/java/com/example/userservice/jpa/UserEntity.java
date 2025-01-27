@@ -31,4 +31,8 @@ public class UserEntity {
         this.encryptedPassword = encryptedPassword;
         this.createdAt = createdAt;
     }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

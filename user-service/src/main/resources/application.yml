@@ -5,16 +5,21 @@ spring:
   application:
     name: user-service
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: myuser
+    password: mypassword
+    driver-class-name: org.postgresql.Driver
 
-
-  h2 :
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-        path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+        default_batch_fetch_size: 100
+    open-in-view: false
 
 
 eureka:

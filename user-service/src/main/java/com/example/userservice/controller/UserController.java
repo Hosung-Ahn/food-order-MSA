@@ -7,6 +7,7 @@ import com.example.userservice.valueobject.Greeting;
 import com.example.userservice.valueobject.UserCreateRequest;
 import com.example.userservice.valueobject.UserCreateResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,11 @@ public class UserController {
     private final Greeting greeting;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final Environment env;
 
     @GetMapping("/health")
     public String health() {
-        return "User Service is up and running";
+        return "User Service is up and running" + ", port: " + env.getProperty("server.port") + ", test: " + env.getProperty("test.hello");
     }
 
     @GetMapping("/welcome")

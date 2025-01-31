@@ -7,6 +7,7 @@ import com.example.userservice.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
         userDto.setUserId(UUID.randomUUID().toString());
         userDto.setEncryptedPassword("encryptedPassword");
         UserEntity userEntity = userMapper.userDtoToUserEntity(userDto);
+        userEntity.setCreatedAt(LocalDateTime.now());
         userRepository.save(userEntity);
         return userMapper.userEntityToUserDto(userEntity);
     }

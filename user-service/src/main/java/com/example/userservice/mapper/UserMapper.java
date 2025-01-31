@@ -3,6 +3,7 @@ package com.example.userservice.mapper;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.valueobject.UserCreateRequest;
+import com.example.userservice.valueobject.UserCreateResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,5 +34,13 @@ public class UserMapper {
         userDto.setName(userCreateRequest.getName());
         userDto.setPassword(userCreateRequest.getPassword());
         return userDto;
+    }
+
+    public UserCreateResponse userDtoToUserCreateResponse(UserDto userDto) {
+        UserCreateResponse userCreateResponse = new UserCreateResponse();
+        userCreateResponse.setEmail(userDto.getEmail());
+        userCreateResponse.setName(userDto.getName());
+        userCreateResponse.setUserId(userDto.getUserId());
+        return userCreateResponse;
     }
 }

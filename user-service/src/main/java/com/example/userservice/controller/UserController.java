@@ -5,8 +5,10 @@ import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.service.UserService;
 import com.example.userservice.valueobject.Greeting;
 import com.example.userservice.valueobject.UserCreateRequest;
+import com.example.userservice.valueobject.UserCreateResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,10 +30,13 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public String createUser(@RequestBody UserCreateRequest userCreateRequest) {
+    public ResponseEntity<UserCreateResponse> createUser(@RequestBody UserCreateRequest userCreateRequest) {
         UserDto userDto = userMapper.userCreateRequestToUserDto(userCreateRequest);
-        userService.createUser(userDto);
-        return "User created successfully";
+        UserDto user = userService.createUser(userDto);
+        UserCreateResponse userCreateResponse = userMapper.userDtoToUserCreateResponse(user);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userCreateResponse);
     }
 
 }
